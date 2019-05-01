@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mysql-docker-container:
+    image:  'mysql:latest'
+    networks:
+     - akkspringappnet
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: kkonly4u
+      MYSQL_PASSWORD: test1234
+    ports:
+      - "3306:3306"
+  spring-rest-hibernate-app:
+    image: kkonly4u/springresthibernateapp
+    build:  
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8087:8080"
+    networks: 
+      - akkspringappnet
+networks:
+  akkspringappnet:
+    driver: bridge
